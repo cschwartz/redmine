@@ -283,6 +283,9 @@ de:
   field_auth_source_ldap_filter: LDAP Filter
   field_author: Autor
   field_base_dn: Base DN
+  none: Keine
+  simple_tls: Simple TLS
+  start_tls: Start TLS
   field_board_parent: Übergeordnetes Forum
   field_category: Kategorie
   field_column_names: Spalten
@@ -302,6 +305,7 @@ de:
   field_due_date: Abgabedatum
   field_editable: Bearbeitbar
   field_effective_date: Datum
+  field_encryption: Verschlüsselung
   field_estimated_hours: Geschätzter Aufwand
   field_field_format: Format
   field_filename: Datei

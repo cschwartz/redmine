@@ -325,6 +325,10 @@ en:
   field_repository_is_default: Main repository
   field_multiple: Multiple values
   field_auth_source_ldap_filter: LDAP filter
+  field_encryption: Encryption
+  none: None
+  simple_tls: Simple TLS
+  start_tls: Start TLS
   field_core_fields: Standard fields
   field_timeout: "Timeout (in seconds)"
   field_board_parent: Parent forum
