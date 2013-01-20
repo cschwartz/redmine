@@ -20,6 +20,8 @@ require 'net/ldap/dn'
 require 'timeout'
 
 class AuthSourceLdap < AuthSource
+  SUPPORTED_ENCRYPTION_TYPES = %w(none simple_tls start_tls)
+
   validates_presence_of :host, :port, :attr_login
   validates_length_of :name, :host, :maximum => 60, :allow_nil => true
   validates_length_of :account, :account_password, :base_dn, :filter, :maximum => 255, :allow_blank => true
@@ -27,7 +29,7 @@ class AuthSourceLdap < AuthSource
   validates_numericality_of :port, :only_integer => true
   validates_numericality_of :timeout, :only_integer => true, :allow_blank => true
   validate :validate_filter
-  validates :encryption, :inclusion => { :in => %w(none simple_tls start_tls),
+  validates :encryption, :inclusion => { :in => AuthSourceLdap::SUPPORTED_ENCRYPTION_TYPES,
     :message => "%{value} is no valid encryption" }
 
   before_validation :strip_ldap_attributes

@@ -3,7 +3,8 @@
 <div class="box tabular">
   <p><%= f.text_field :name, :required => true %></p>
   <p><%= f.text_field :host, :required => true %></p>
-  <p><%= f.text_field :port, :required => true, :size => 6 %> <%= f.check_box :tls, :no_label => true %> LDAPS</p>
+  <p><%= f.text_field :port, :required => true, :size => 6 %> 
+<p><%= f.select :encryption, @auth_source.class::SUPPORTED_ENCRYPTION_TYPES.map { |type| t(type) }.zip(@auth_source.class::SUPPORTED_ENCRYPTION_TYPES) %></p>
   <p><%= f.text_field :account %></p>
   <p><%= f.password_field :account_password, :label => :field_password,
            :name => 'dummy_password',

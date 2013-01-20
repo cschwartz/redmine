@@ -63,7 +63,7 @@ class AuthSourceLdapTest < ActiveSupport::TestCase
     a.encryption = "super_secret"
 
     assert !a.valid?
-    assert_include "encryption super_secret is no valid encryption", a.errors.full_messages
+    assert_include "Encryption super_secret is no valid encryption", a.errors.full_messages
 
     ["none", "simple_tls", "start_tls"].each do |encryption|
       a.encryption = encryption
