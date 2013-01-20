@@ -93,6 +93,10 @@ class AuthSourceLdap < AuthSource
     raise AuthSourceException.new(e.message)
   end
 
+  def selected_encryption_type
+    encryption == "none" ? nil : encryption.to_sym
+  end
+
   private
 
   def with_timeout(&block)
@@ -136,8 +140,8 @@ class AuthSourceLdap < AuthSource
   def initialize_ldap_con(ldap_user, ldap_password)
     options = { :host => self.host,
                 :port => self.port,
-                :encryption => (self.tls ? :simple_tls : nil)
-              }
+                :encryption => selected_encryption_type
+    }
     options.merge!(:auth => { :method => :simple, :username => ldap_user, :password => ldap_password }) unless ldap_user.blank? && ldap_password.blank?
     Net::LDAP.new options
   end
@@ -201,4 +205,5 @@ class AuthSourceLdap < AuthSource
       entry[attr_name].is_a?(Array) ? entry[attr_name].first : entry[attr_name]
     end
   end
+
 end

@@ -71,6 +71,17 @@ class AuthSourceLdapTest < ActiveSupport::TestCase
     end
   end
 
+  def test_encryption_selection
+   a = AuthSourceLdap.new(:name => 'My LDAP', :host => 'ldap.example.net', :port => 389, :attr_login => 'sn', :encryption => "none") 
+   assert_equal a.selected_encryption_type, nil
+
+   a.encryption = "simple_tls"
+   assert_equal a.selected_encryption_type, :simple_tls
+
+   a.encryption = "start_tls"
+   assert_equal a.selected_encryption_type, :start_tls
+  end
+
   if ldap_configured?
     context '#authenticate' do
       setup do
