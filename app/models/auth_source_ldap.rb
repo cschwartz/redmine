@@ -27,6 +27,8 @@ class AuthSourceLdap < AuthSource
   validates_numericality_of :port, :only_integer => true
   validates_numericality_of :timeout, :only_integer => true, :allow_blank => true
   validate :validate_filter
+  validates :encryption, :inclusion => { :in => %w(none simple_tls start_tls),
+    :message => "%{value} is no valid encryption" }
 
   before_validation :strip_ldap_attributes
 

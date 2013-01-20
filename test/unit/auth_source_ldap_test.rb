@@ -57,6 +57,20 @@ class AuthSourceLdapTest < ActiveSupport::TestCase
     assert a.valid?
   end
 
+  def test_encryption_should_be_validated
+    set_language_if_valid 'en'
+    a = AuthSourceLdap.new(:name => 'My LDAP', :host => 'ldap.example.net', :port => 389, :attr_login => 'sn')
+    a.encryption = "super_secret"
+
+    assert !a.valid?
+    assert_include "encryption super_secret is no valid encryption", a.errors.full_messages
+
+    ["none", "simple_tls", "start_tls"].each do |encryption|
+      a.encryption = encryption
+      assert a.valid?
+    end
+  end
+
   if ldap_configured?
     context '#authenticate' do
       setup do
