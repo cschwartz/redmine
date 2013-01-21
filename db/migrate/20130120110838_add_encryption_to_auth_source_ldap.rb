@@ -5,7 +5,7 @@ class AddEncryptionToAuthSourceLdap < ActiveRecord::Migration
   def up
     add_column :auth_sources, :encryption, :string, :default => "none", :null => false
     AuthSourceLdap.all do  |auth_source|
-      auth_source.encryption = :simple_tls if auth_source.tls
+      auth_source.encryption = "simple_tls" if auth_source.tls
     end
     remove_column :auth_sources, :tls
   end
@@ -14,7 +14,7 @@ class AddEncryptionToAuthSourceLdap < ActiveRecord::Migration
     add_column :auth_sources, :tls, :boolean, :default => false, :null => false
 
     AuthSourceLdap.all do |auth_source|
-      if auth_source.encryption == :simple_tls
+      if auth_source.encryption == "simple_tls"
         auth_source = true
       else
         #because we're removing support for :start_tls, we're losing information. sorry
